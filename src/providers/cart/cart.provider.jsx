@@ -20,9 +20,15 @@ const CartProvider = ({ children }) => {
   const [total, setTotal] = useState(0);
 
   const toggleHidden = () => setHidden(!hidden);
+
   const addItem = (item) => setCartItems(addItemToCart(cartItems, item));
+
   const removeItem = (item) =>
     setCartItems(removeItemFromCart(cartItems, item));
+
+  const clearItemFromCart = (item) => setCartItems(cartItems.filter(
+    cartItem => cartItem.id !== item.id
+  ))
 
   useEffect(() => {
     const count = cartItems.reduce(
@@ -51,6 +57,7 @@ const CartProvider = ({ children }) => {
         addItem,
         removeItem,
         total,
+        clearItemFromCart,
       }}
     >
       {children}
